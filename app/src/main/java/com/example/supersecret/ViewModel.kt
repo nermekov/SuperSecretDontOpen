@@ -13,8 +13,7 @@ internal class ViewModel : ViewModel(), UIActions {
 
     private val flowListState: ListState = ListStateImpl(viewModelScope)
 
-    private val flowNumberState: NumberState =
-        NumberStateImpl(viewModelScope)
+    private val flowNumberState: NumberState = NumberStateImpl(viewModelScope)
 
     private val clickSpamCheckerState: ClickSpamCheckerState = ClickSpamCheckerStateImpl()
 
