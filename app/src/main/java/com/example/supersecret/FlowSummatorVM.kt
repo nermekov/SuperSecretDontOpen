@@ -1,84 +1,31 @@
 package com.example.supersecret
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-
-private const val CLICK_SPAM_INTERVAL_MS = 1000
-private const val BASIC_FLOW_INTERVAL_MS = 100L
-private const val INPUT_NUMBER_LIMIT = 1000
+import com.example.supersecret.click_checker.ClickSpamCheckerState
+import com.example.supersecret.click_checker.ClickSpamCheckerStateImpl
+import com.example.supersecret.list_state.FlowSummatorListState
+import com.example.supersecret.list_state.FlowSummatorListStateImpl
+import com.example.supersecret.text_state.FlowSummatorNumberState
+import com.example.supersecret.text_state.FlowSummatorNumberStateImpl
 
 internal class FlowSummatorVM : ViewModel(), FlowSummatroUIActions {
 
-    val itemsState = mutableStateListOf<UiRow>()
-    val textState = mutableStateOf("")
+    private val flowListState: FlowSummatorListState = FlowSummatorListStateImpl(viewModelScope)
 
-    private var lastClickedMillis = 0L
+    private val flowNumberState: FlowSummatorNumberState =
+        FlowSummatorNumberStateImpl(viewModelScope)
 
-    private var flowsJob: Job? = null
+    private val clickSpamCheckerState: ClickSpamCheckerState = ClickSpamCheckerStateImpl()
 
-    private var n = 0
+    val itemsState = flowListState.itemsState
 
-    init {
-        snapshotFlow { textState.value }
-            .drop(1)
-            .onEach {
-                onTextChanged(it)
-            }.launchIn(viewModelScope)
-    }
+    val textState = flowNumberState.textState
+
 
     override fun onSubmitClicked() {
-        if (n < 1) return
-        if (checkClickForbidden()) return
-        flowsJob?.cancel()
-        itemsState.add(UiRow(n, mutableStateListOf()))
-        launchFlowsCollection(createFlowArray(n))
-    }
-
-    private fun onTextChanged(text: String) {
-        try {
-            when {
-                text == "0" -> {
-                    n = 0
-                    textState.value = ""
-                }
-                text.isBlank() -> n = 0
-                text.toInt() < INPUT_NUMBER_LIMIT -> n = text.toInt()
-                else -> textState.value = n.toString()
-            }
-        } catch (_: Exception) {
-            textState.value = ""
-            n = 0
-        }
-    }
-
-    private fun launchFlowsCollection(flowArray: Array<Flow<Int>>) {
-        flowsJob = viewModelScope.launch {
-            var totalSum = 0
-            merge(*flowArray).collectLatest {
-                totalSum += it
-                itemsState.lastOrNull()?.let { pair ->
-                    pair.calculatedValues.add(totalSum)
-                }
-            }
-        }
-    }
-
-    private fun createFlowArray(n: Int) = Array(n) { index ->
-        flow {
-            delay((index + 1L) * BASIC_FLOW_INTERVAL_MS)
-            emit(index + 1)
-        }
-    }
-    
-    private fun checkClickForbidden(): Boolean {
-        val isClickForbidden = System.currentTimeMillis() - lastClickedMillis < CLICK_SPAM_INTERVAL_MS
-        if (!isClickForbidden)
-            lastClickedMillis = System.currentTimeMillis()
-        return isClickForbidden
+        if (flowNumberState.getN() < 1) return
+        if (clickSpamCheckerState.checkClickForbidden()) return
+        flowListState.startSummator(flowNumberState.getN())
     }
 }
