@@ -9,7 +9,7 @@ import com.example.supersecret.list_state.FlowSummatorListStateImpl
 import com.example.supersecret.text_state.FlowSummatorNumberState
 import com.example.supersecret.text_state.FlowSummatorNumberStateImpl
 
-internal class FlowSummatorVM : ViewModel(), FlowSummatroUIActions {
+internal class FlowSummatorVM : ViewModel(), FlowSummatorUIActions {
 
     private val flowListState: FlowSummatorListState = FlowSummatorListStateImpl(viewModelScope)
 
