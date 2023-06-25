@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.windytestovoe'
+    namespace 'com.example.supersecret'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.windytestovoe"
+        applicationId "com.example.supersecret"
         minSdk 24
         targetSdk 33
         versionCode 1

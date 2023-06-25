@@ -1,4 +1,4 @@
-package com.example.windytestovoe
+package com.example.supersecret
 
 import org.junit.Test
 

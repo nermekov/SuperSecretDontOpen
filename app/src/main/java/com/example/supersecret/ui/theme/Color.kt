@@ -1,4 +1,4 @@
-package com.example.windytestovoe.ui.theme
+package com.example.supersecret.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

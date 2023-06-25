@@ -1,4 +1,4 @@
-package com.example.windytestovoe.ui.theme
+package com.example.supersecret.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -28,7 +28,7 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun WindyTestovoeTheme(
+fun SuperSecretAppDontOpen(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
