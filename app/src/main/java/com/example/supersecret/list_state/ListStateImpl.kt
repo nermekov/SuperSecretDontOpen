@@ -19,6 +19,9 @@ internal class ListStateImpl(private val vmScope: CoroutineScope) :
 
     private var flowsJob: Job? = null
 
+    /**
+     * Немного засекретил код, чтобы не находили с гугла
+     */
     override fun startSecretOperation(n: Int) {
         flowsJob?.cancel()
         itemsState.add(UiRow(n, mutableStateListOf()))
