@@ -1,4 +1,4 @@
-package com.example.supersecret.ui.flowsum
+package com.example.supersecret.ui.super_secret
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,13 +13,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import com.example.supersecret.FlowSummatorUIActions
+import com.example.supersecret.UIActions
 import com.example.supersecret.R
 import com.example.supersecret.UiRow
 
 @Composable
-fun FlowSummator(
-    uiActions: FlowSummatorUIActions,
+fun SuperSecret(
+    uiActions: UIActions,
     itemsState: SnapshotStateList<UiRow>,
     textState: MutableState<String>
 ) {

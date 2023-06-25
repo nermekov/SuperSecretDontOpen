@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.onEach
 
 private const val INPUT_NUMBER_LIMIT = 1000
 
-internal class FlowSummatorNumberStateImpl(
+internal class NumberStateImpl(
     vmScope: CoroutineScope
-) : FlowSummatorNumberState {
+) : NumberState {
     override val textState = mutableStateOf("")
 
     private var mN = 0

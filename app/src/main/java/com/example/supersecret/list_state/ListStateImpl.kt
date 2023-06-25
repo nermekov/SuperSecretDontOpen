@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 
 private const val BASIC_FLOW_INTERVAL_MS = 100L
 
-internal class FlowSummatorListStateImpl(private val vmScope: CoroutineScope) :
-    FlowSummatorListState {
+internal class ListStateImpl(private val vmScope: CoroutineScope) :
+    ListState {
     override val itemsState = mutableStateListOf<UiRow>()
 
     private var flowsJob: Job? = null
 
-    override fun startSummator(n: Int) {
+    override fun startSecretOperation(n: Int) {
         flowsJob?.cancel()
         itemsState.add(UiRow(n, mutableStateListOf()))
         launchFlowsCollection(createFlowArray(n))

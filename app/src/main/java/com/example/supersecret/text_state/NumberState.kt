@@ -2,7 +2,7 @@ package com.example.supersecret.text_state
 
 import androidx.compose.runtime.MutableState
 
-internal interface FlowSummatorNumberState {
+internal interface NumberState {
     val textState: MutableState<String>
 
     fun getN(): Int
