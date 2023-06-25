@@ -17,6 +17,9 @@ import com.example.supersecret.UIActions
 import com.example.supersecret.R
 import com.example.supersecret.UiRow
 
+/**
+ * Ui описанный в ТЗ
+ */
 @Composable
 fun SuperSecret(
     uiActions: UIActions,
